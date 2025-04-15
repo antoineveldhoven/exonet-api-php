@@ -32,6 +32,7 @@ class Request
             'number' => null,
         ],
         'filter' => [],
+        'sort' => null,
     ];
 
     /**
@@ -177,6 +178,21 @@ class Request
     }
 
     /**
+     * Set the sortorder for the request.
+     *
+     * @param string $name  The name to sort on.
+     * @param mixed  $value The filter value. Default: true.
+     *
+     * @return self This current Request instance.
+     */
+    public function sort(string $name, string $order = 'ASC'): self
+    {
+        $this->queryStringParameters['sort'] = $order === 'DESC' ? '-'.$name : $name;
+
+        return $this;
+    }
+
+    /**
      * Prepare the URL for the resource, including (optional) ID and query string parameters. Remove
      * excessive slashes and add query string parameters.
      *
@@ -192,10 +208,11 @@ class Request
         }
 
         $params = http_build_query($this->queryStringParameters);
+        var_dump($this->queryStringParameters);
         if (!empty($params)) {
             $url .= '?'.$params;
         }
-
+var_dump($url);
         return $url;
     }
 }
