@@ -212,7 +212,8 @@ class Request
         if (!empty($params)) {
             $url .= '?'.$params;
         }
-var_dump($url);
+        var_dump($url);
+
         return $url;
     }
 }
